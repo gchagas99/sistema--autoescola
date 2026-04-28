@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema Autoescola</title>
+  <style>
+    body { font-family: Arial; background:#f4f4f4; padding:20px; }
+    h1 { text-align:center; }
+    .container { max-width:600px; margin:auto; background:#fff; padding:20px; border-radius:8px; }
+    input, select, button { width:100%; padding:10px; margin:5px 0; }
+    table { width:100%; margin-top:20px; border-collapse: collapse; }
+    th, td { border:1px solid #ccc; padding:8px; text-align:center; }
+    button { cursor:pointer; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Controle de Alunos</h1>
+
+  <input type="text" id="nome" placeholder="Nome do aluno">
+  <select id="status">
+    <option value="Em andamento">Em andamento</option>
+    <option value="Aprovado">Aprovado</option>
+    <option value="Reprovado">Reprovado</option>
+  </select>
+  <button onclick="adicionarAluno()">Adicionar</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Status</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody id="lista"></tbody>
+  </table>
+</div>
+
+<script>
+  let alunos = [];
+
+  function adicionarAluno() {
+    const nome = document.getElementById('nome').value;
+    const status = document.getElementById('status').value;
+
+    if(nome === '') return alert('Digite um nome');
+
+    alunos.push({ nome, status });
+    document.getElementById('nome').value = '';
+
+    render();
+  }
+
+  function removerAluno(index) {
+    alunos.splice(index,1);
+    render();
+  }
+
+  function render() {
+    const lista = document.getElementById('lista');
+    lista.innerHTML = '';
+
+    alunos.forEach((aluno, index) => {
+      lista.innerHTML += `
+        <tr>
+          <td>${aluno.nome}</td>
+          <td>${aluno.status}</td>
+          <td><button onclick="removerAluno(${index})">Excluir</button></td>
+        </tr>
+      `;
+    });
+  }
+</script>
+
+</body>
+</html>
