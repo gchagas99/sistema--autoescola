@@ -60,10 +60,15 @@
   }
 
   function render() {
+    const busca = document.getElementById('busca').value.toLowerCase();
+
     const lista = document.getElementById('lista');
     lista.innerHTML = '';
 
-    alunos.forEach((aluno, index) => {
+  alunos
+  .filter(aluno => aluno.nome.toLowerCase().includes(busca))
+  .forEach((aluno, index) => {
+
       lista.innerHTML += `
         <tr>
           <td>${aluno.nome}</td>
